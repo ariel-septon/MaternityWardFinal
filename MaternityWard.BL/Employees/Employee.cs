@@ -28,21 +28,6 @@ namespace MaternityWard.BL
             this.workHours = workHours;
             this.id = id;
         }
-
-        /*  public virtual void AddEmployeeToDB(string type, int workHours)
-          {
-              dbConnection.Open();
-              SqlCommand cmd = new SqlCommand("insert into Employees values " +
-                  "(@EmployeeID,@EmployeeType,@CategoryID,@WorkHours)", dbConnection);
-              cmd.Parameters.AddWithValue("@EmployeeID", this.ID);
-              cmd.Parameters.AddWithValue("@EmployeeType", type);
-              cmd.Parameters.AddWithValue("@CategoryID", this.category);
-              if (workHours > 0)
-              {
-                  cmd.Parameters.AddWithValue("@WorkHours", workHours);
-              }
-
-          } */
         public abstract double CalculateEarnings();
 
         public void AddRanks(IRank[] ranks)

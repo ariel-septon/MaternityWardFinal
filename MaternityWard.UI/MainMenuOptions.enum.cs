@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MaternityWard.UI
 {
-    public enum MenuOptions
+    public enum MainMenuOptions
     {
         EXIT_MENU = 0,
         ADD_EMPLOYEE = 1,
