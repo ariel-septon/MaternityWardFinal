@@ -10,7 +10,6 @@ namespace MaternityWard
         {
             UIBootstrap bootstrap = new UIBootstrap();
             bootstrap.Start();
-            Console.ReadKey();
         }
 
     }

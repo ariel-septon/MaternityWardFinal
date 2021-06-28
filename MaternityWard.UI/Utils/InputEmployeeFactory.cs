@@ -21,7 +21,7 @@ namespace MaternityWard.UI
 
         private int InsertWorkHours(string employeeType)
         {
-            uiPrinters.PrintWithConsole<string>("please insert " + employeeType + " work hours.");
+            uiPrinters.PrintWithConsole<string>("please insert the " + employeeType + "'s monthly work hours by now. ");
             return uiReaders.GetUserInput<int>();
         }
 

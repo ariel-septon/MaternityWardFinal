@@ -43,8 +43,16 @@ namespace MaternityWard.UI
         }
         public void MainMenu()
         {
-            int choice = uiPrinters.PrintMenuOptions<MainMenuOptions>();
-            ExecuteAction(choice);
+            int choice;
+            do
+            {
+                choice = uiPrinters.PrintMenuOptions<MainMenuOptions>();
+                ExecuteAction(choice);
+                if (choice != 0)
+                {
+                    choice = uiPrinters.PrintMenuOptions<ReRunMenuOptions>();
+                }
+            } while (choice != 0);
         }
         private void AddEmployee()
         {
