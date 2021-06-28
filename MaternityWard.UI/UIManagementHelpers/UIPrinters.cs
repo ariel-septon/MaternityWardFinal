@@ -16,10 +16,10 @@ namespace MaternityWard.UI
             int choice;
             do
             {
-                Console.WriteLine("Please Choose option from the menu:");
+                PrintWithConsole<string>("Please Choose option from the menu:");
                 foreach (T menuOption in Enum.GetValues(typeof(T)))
                 {
-                    Print<string>(Convert.ToInt32(menuOption) + ") " + menuOption);
+                    PrintWithConsole<string>(Convert.ToInt32(menuOption) + ") " + menuOption);
                 }
                 choice = uiReaders.GetUserChoice();
                 return choice;
@@ -27,9 +27,9 @@ namespace MaternityWard.UI
             } while (choice > 0);
         }
 
-        public void Print<T>(T str)
+        public void PrintWithConsole<T>(T print)
         {
-            Console.WriteLine(str);
+            Console.WriteLine(print);
         }
 
     }

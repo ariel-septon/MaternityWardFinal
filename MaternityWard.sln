@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaternityWard", "MaternityWard.csproj", "{0DB71468-3FB1-47E6-90EF-9C5446F059FC}"
 EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "MaternityWard.DB", "MaternityWard.DB\MaternityWard.DB.sqlproj", "{0BEF1D0E-6F95-4050-A582-1ED4E5821D87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{0DB71468-3FB1-47E6-90EF-9C5446F059FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DB71468-3FB1-47E6-90EF-9C5446F059FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DB71468-3FB1-47E6-90EF-9C5446F059FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BEF1D0E-6F95-4050-A582-1ED4E5821D87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BEF1D0E-6F95-4050-A582-1ED4E5821D87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BEF1D0E-6F95-4050-A582-1ED4E5821D87}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0BEF1D0E-6F95-4050-A582-1ED4E5821D87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BEF1D0E-6F95-4050-A582-1ED4E5821D87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BEF1D0E-6F95-4050-A582-1ED4E5821D87}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

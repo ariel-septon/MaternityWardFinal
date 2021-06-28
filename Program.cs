@@ -9,6 +9,7 @@ namespace MaternityWard
         static void Main(string[] args)
         {
             UIBootstrap bootstrap = new UIBootstrap();
+            bootstrap.Start();
         }
 
     }

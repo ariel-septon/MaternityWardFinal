@@ -11,6 +11,10 @@ namespace MaternityWard.UI
         private readonly UIExecuter uiExecuter = new UIExecuter(employeeID, shiftID);
         public UIBootstrap()
         {
+
+        }
+        public void Start()
+        {
             uiExecuter.MainMenu();
         }
     }

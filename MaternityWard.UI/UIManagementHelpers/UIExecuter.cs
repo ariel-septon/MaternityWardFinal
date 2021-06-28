@@ -25,7 +25,7 @@ namespace MaternityWard.UI
             switch (choice)
             {
                 case 0:
-                    Console.WriteLine("Exit :)");
+                    uiPrinters.PrintWithConsole<string>("Exit :)");
                     break;
                 case 1:
                     AddEmployee();
@@ -37,7 +37,7 @@ namespace MaternityWard.UI
                     ViewEmployeeSalary();
                     break;
                 default:
-                    Console.WriteLine("please enter a valid option.");
+                    uiPrinters.PrintWithConsole<string>("please enter a valid option.");
                     break;
             }
         }
@@ -48,32 +48,27 @@ namespace MaternityWard.UI
         }
         private void AddEmployee()
         {
-            int choice;
-            do
+            int choice = uiPrinters.PrintMenuOptions<EmployeeTypeEnum>();
+            if (Enum.IsDefined(typeof(EmployeeTypeEnum), choice))
             {
-                choice = uiPrinters.PrintMenuOptions<EmployeeTypeEnum>();
-                if (Enum.IsDefined(typeof(EmployeeTypeEnum), choice))
-                {
-                    EmployeeFactory factory = new EmployeeFactory();
-                    Employee emp = factory.CreateEmployeeInstance(Enum.GetName(typeof(EmployeeTypeEnum), choice), employeeID);
-                    employeeID += 1;
-                    ManageEmployees manage = new ManageEmployees();
-                    manage.AddEmployee(emp);
-                }
-            } while (!Enum.IsDefined(typeof(EmployeeTypeEnum), choice));
-
+                EmployeeFactory factory = new EmployeeFactory();
+                Employee emp = factory.CreateEmployeeInstance(Enum.GetName(typeof(EmployeeTypeEnum), choice), employeeID);
+                employeeID += 1;
+                ManageEmployees manage = new ManageEmployees();
+                manage.AddEmployee(emp);
+            }
         }
         private  void InsertShiftHoursForEmployee()
         {
             int employeeID;
-            uiPrinters.Print<string>("Please Enter EmployeeID: ");
+            uiPrinters.PrintWithConsole<string>("Please Enter EmployeeID: ");
             employeeID = uiReaders.GetUserChoice();
 
             ManageEmployees manageEmployees = new ManageEmployees();
             ManageShifts manageShifts = new ManageShifts();
 
             manageEmployees.GetEmployeeByID(employeeID);
-            uiPrinters.Print<string>("insert hour in and hour out in the format: 0100 <-> 2400");
+            uiPrinters.PrintWithConsole<string>("insert hour in and hour out in the format: 0100 <-> 2400");
             int hourIn = uiReaders.GetUserChoice();
             int hourOut = uiReaders.GetUserChoice();
             Shift shift = new Shift(ShiftID, employeeID, hourIn, hourOut);
@@ -83,13 +78,13 @@ namespace MaternityWard.UI
         private  void ViewEmployeeSalary()
         {
             int employeeID;
-            uiPrinters.Print<string>("Please Enter EmployeeID:");
+            uiPrinters.PrintWithConsole<string>("Please Enter EmployeeID:");
             employeeID = uiReaders.GetUserChoice();
 
             ManageEmployees manageEmployees = new ManageEmployees();
 
             Employee employee = manageEmployees.GetEmployeeByID(employeeID);
-            uiPrinters.Print<double>(employee.CalculateEarnings());
+            uiPrinters.PrintWithConsole<double>(employee.CalculateEarnings());
         }
     }
 }
