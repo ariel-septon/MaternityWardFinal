@@ -22,15 +22,16 @@ namespace MaternityWard.BL
         }
         private void SetWorkHoursForRanks(int workHours)
         {
-            foreach (HourlyPaidRank rank in this.Ranks)
+            foreach (IRank rank in this.Ranks)
             {
                 if (rank is HourlyPaidRank)
                 {
-                    rank.WorkHours = workHours;
+                    HourlyPaidRank hourlyPaid = (HourlyPaidRank)rank;
+                    hourlyPaid.WorkHours = workHours;
                 }
             }
         }
-        public override double CalculateEarnings()
+        protected override double CalculateEarnings()
         {
             double maxSalary = 0;
             foreach (IRank rank in this.Ranks)
@@ -43,7 +44,8 @@ namespace MaternityWard.BL
             this.Payment = maxSalary;
             return maxSalary;
         }
-        protected override double GetPayment()
+
+        public override double GetPayment()
         {
             this.InitRanks();
             this.SetWorkHoursForRanks(this.WorkHours);

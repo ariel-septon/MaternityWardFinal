@@ -7,7 +7,7 @@ namespace MaternityWard.BL
         private double hourlyPayRate;
         private double payment;
 
-        protected double HourlyPayRate { get => hourlyPayRate; set => hourlyPayRate = value; }
+        public double HourlyPayRate { get => hourlyPayRate; set => hourlyPayRate = value; }
         public int WorkHours { get => workHours; set => workHours = value; }
         protected double Payment { get => payment; set => payment = this.SalaryCalculation(); }
 

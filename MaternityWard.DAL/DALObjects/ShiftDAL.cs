@@ -38,15 +38,17 @@ namespace MaternityWard.DAL
             }
             return dataTable;
         }
-        public static int AddShift(int shiftID, int employeeID, int hourIn, int hourOut)
+        public static int AddShift(int shiftID, int employeeID, string hourIn, string hourOut)
         {
             if (!DBHelper.OpenConnection())
             {
                 throw new Exception("There is a connection problem");
             }
             string sql = "INSERT INTO Shifts (ShiftID, EmployeeID, HourIn, HourOut)" +
-                " VALUES (" + shiftID + "," + employeeID + "," + hourIn + "," + hourOut + ")";
+                " VALUES (" + shiftID + "," + employeeID + ",'" + hourIn + "','" + hourOut + "')";
+
             int num = DBHelper.WriteData(sql);
+
             DBHelper.CloseConnection();
             shiftID = shiftID++;
             if (num == -1)

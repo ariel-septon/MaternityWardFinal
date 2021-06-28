@@ -51,7 +51,7 @@ namespace MaternityWard.UI
             int choice = uiPrinters.PrintMenuOptions<EmployeeTypeEnum>();
             if (Enum.IsDefined(typeof(EmployeeTypeEnum), choice))
             {
-                EmployeeFactory factory = new EmployeeFactory();
+                InputEmployeeFactory factory = new InputEmployeeFactory();
                 Employee emp = factory.CreateEmployeeInstance(Enum.GetName(typeof(EmployeeTypeEnum), choice), employeeID);
                 employeeID += 1;
                 ManageEmployees manage = new ManageEmployees();
@@ -62,15 +62,15 @@ namespace MaternityWard.UI
         {
             int employeeID;
             uiPrinters.PrintWithConsole<string>("Please Enter EmployeeID: ");
-            employeeID = uiReaders.GetUserChoice();
+            employeeID = uiReaders.GetUserInput<int>();
 
             ManageEmployees manageEmployees = new ManageEmployees();
             ManageShifts manageShifts = new ManageShifts();
 
             manageEmployees.GetEmployeeByID(employeeID);
-            uiPrinters.PrintWithConsole<string>("insert hour in and hour out in the format: 0100 <-> 2400");
-            int hourIn = uiReaders.GetUserChoice();
-            int hourOut = uiReaders.GetUserChoice();
+            uiPrinters.PrintWithConsole<string>("insert hour in and hour out in the format-> hour:minutes (12:30)");
+            DateTime hourIn = uiReaders.GetUserDateTime(DateTime.Now.Day, new DateTime());
+            DateTime hourOut = uiReaders.GetUserDateTime(DateTime.Now.Day, hourIn);
             Shift shift = new Shift(ShiftID, employeeID, hourIn, hourOut);
             ShiftID += 1;
             manageShifts.AddShift(shift);
@@ -79,12 +79,11 @@ namespace MaternityWard.UI
         {
             int employeeID;
             uiPrinters.PrintWithConsole<string>("Please Enter EmployeeID:");
-            employeeID = uiReaders.GetUserChoice();
-
+            employeeID = uiReaders.GetUserInput<int>();
             ManageEmployees manageEmployees = new ManageEmployees();
 
             Employee employee = manageEmployees.GetEmployeeByID(employeeID);
-            uiPrinters.PrintWithConsole<double>(employee.CalculateEarnings());
+            uiPrinters.PrintWithConsole<double>(employee.GetPayment());
         }
     }
 }

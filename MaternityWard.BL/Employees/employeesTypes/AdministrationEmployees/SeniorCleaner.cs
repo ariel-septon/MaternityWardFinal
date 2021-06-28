@@ -8,7 +8,6 @@ namespace MaternityWard.BL
             this.Category = Category.Administration;
             this.EmployeeType = EmployeeTypeEnum.SeniorCleaner;
         }
-
         public override void InitRanks()
         {
             List<IRank> ranks = new List<IRank> { new Senior() };

@@ -12,6 +12,7 @@ namespace MaternityWard.BL
         private int workHours;
         private Category category;
         private double payment;
+        private double hourlyPayment;
         private bool isHourlyPaid;
 
         protected List<IRank> ranks = new List<IRank>();
@@ -22,13 +23,15 @@ namespace MaternityWard.BL
         public bool IsHourlyPaid { get => isHourlyPaid; set => isHourlyPaid = value; }
         public int Id { get => id; set => id = value; }
         public double Payment { get => payment; set => payment = value; }
+        public double HourlyPayment { get => hourlyPayment; set => hourlyPayment = value; }
 
         public Employee(int workHours, int id)
         {
             this.workHours = workHours;
             this.id = id;
+            this.GetHourlyPayment();
         }
-        public abstract double CalculateEarnings();
+        protected abstract double CalculateEarnings();
 
         public void AddRanks(IRank[] ranks)
         {
@@ -37,9 +40,27 @@ namespace MaternityWard.BL
                 this.Ranks.Add(rank);
             }
         }
-        protected virtual double GetPayment()
+        public virtual double GetPayment()
         {
             return this.Payment;
+        }
+
+        public double GetHourlyPayment()
+        {
+            double maxHourlyPayRate = 0;
+            foreach (IRank rank in this.Ranks)
+            {
+                if (rank is HourlyPaidRank)
+                {
+                    HourlyPaidRank hourlyPaid = (HourlyPaidRank)rank;
+                    if (hourlyPaid.HourlyPayRate > maxHourlyPayRate)
+                    {
+                        maxHourlyPayRate = hourlyPaid.HourlyPayRate;
+                    }
+                }
+            }
+            this.hourlyPayment = maxHourlyPayRate;
+            return maxHourlyPayRate;
         }
 
         protected bool ExtraPaidCheck()

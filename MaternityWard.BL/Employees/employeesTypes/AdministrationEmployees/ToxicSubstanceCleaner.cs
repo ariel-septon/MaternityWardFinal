@@ -10,7 +10,6 @@ namespace MaternityWard.BL
         }
         public override void InitRanks()
         {
-            // TODO change what atRisk recieves, and calculation;
             base.InitRanks();
             this.extraRanks = new IRank[] { new DecisionsMaker(), new Expert(), new AtRisk(this.extraPayment)};
             this.AddRanks(this.extraRanks);

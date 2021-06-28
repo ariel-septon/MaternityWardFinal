@@ -38,14 +38,25 @@ namespace MaternityWard.DAL
             }
             return dataTable;
         }
-        public static int AddEmployee(int id, string type, int category, int workHours, bool isHourlyPaid, double payment)
+        public static int AddEmployee(int id, string type, int category, int workHours, bool isHourlyPaid, double constantPayment)
         {
             if (!DBHelper.OpenConnection())
             {
                 throw new Exception("There is a connection problem");
             }
-            string sql = "INSERT INTO Employees (EmployeeID, EmployeeType, CategoryID, WorkHours, IsHourlyPaid, Payment)" +
-                " VALUES (" + id + ",'" + type + "','" + category + "','" + workHours + "'," + Convert.ToInt32(isHourlyPaid) + "," + payment +")";
+
+            string sql = "INSERT INTO Employees (EmployeeID, EmployeeType, CategoryID, WorkHours, IsHourlyPaid, ConstantPayment)" +
+                " VALUES (" + id + ",'" + type + "','" + category + "','" + workHours + "'," + Convert.ToInt32(isHourlyPaid) + ",";
+
+            if (isHourlyPaid)
+            {
+                sql += " NULL )";
+            } else
+            {
+                sql += constantPayment + ")";
+            }
+
+
             int num = DBHelper.WriteData(sql);
             DBHelper.CloseConnection();
             id = id++;

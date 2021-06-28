@@ -4,9 +4,9 @@ using System.Text;
 
 namespace MaternityWard.BL
 {
-    public class EmployeeFactoryre
+    public class CreateEmployeeFactory
     {
-        public EmployeeFactoryre()
+        public CreateEmployeeFactory()
         {
         }
         public Employee CreateConstantPaidEmployeeInstance(string employeeType, int id, double payment, int workHours)

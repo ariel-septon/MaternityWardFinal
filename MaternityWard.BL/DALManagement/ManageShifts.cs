@@ -8,13 +8,21 @@ namespace MaternityWard.BL
 {
     public class ManageShifts
     {
+        private string dateFormat = "dd/MM/yyyy HH:mm:ss";
         public bool AddShift(Shift shift)
         {
             if (!ShiftDAL.IsExist(shift.ShiftID))
             {
-                ShiftDAL.AddShift(shift.ShiftID, shift.EmployeeID, shift.HourIn, shift.HourOut);
-                EmployeeDal.UpdateEmployeeWorkHours(shift.EmployeeID, shift.HourOut - shift.HourIn);
-               // EmployeeDal.UpdateEmployeePayment(shift.EmployeeID, )
+                Console.WriteLine(shift.HourIn.ToString(dateFormat));
+                ShiftDAL.AddShift(shift.ShiftID, shift.EmployeeID, shift.HourIn.ToString(dateFormat), shift.HourOut.ToString(dateFormat));
+                ManageEmployees manage = new ManageEmployees();
+
+                Employee employee = manage.GetEmployeeByID(shift.EmployeeID);
+                EmployeeDal.UpdateEmployeeWorkHours(shift.EmployeeID, employee.WorkHours + (shift.HourOut - shift.HourIn).Hours);
+                
+                Console.WriteLine(employee.HourlyPayment);
+                EmployeeDal.UpdateEmployeePayment(shift.EmployeeID, employee.HourlyPayment * employee.WorkHours);
+                
                 Console.WriteLine("success!");
                 return true;
             }
@@ -32,8 +40,8 @@ namespace MaternityWard.BL
                     shifts.Add(new Shift(
                         dataRow.Field<int>("ShiftID"),
                         dataRow.Field<int>("EmployeeID"),
-                        dataRow.Field<int>("HourIn"),
-                        dataRow.Field<int>("HourOut")));
+                        DateTime.ParseExact(dataRow.Field<string>("HourIn"), dateFormat, null),
+                        DateTime.ParseExact(dataRow.Field<string>("HourOut"), dateFormat, null)));
                 }
             }
             return shifts;

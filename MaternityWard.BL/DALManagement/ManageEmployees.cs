@@ -21,7 +21,7 @@ namespace MaternityWard.BL
 
         public Employee GetEmployeeByID(int employeeID)
         {
-            EmployeeFactoryre employeeFactoryre = new EmployeeFactoryre();
+            CreateEmployeeFactory employeeFactory = new CreateEmployeeFactory();
             DataTable dataTable = EmployeeDal.GetEmployee(employeeID);
             Employee employee = null;
             if (dataTable != null)
@@ -32,13 +32,13 @@ namespace MaternityWard.BL
                     {
                         if (dataRow.Field<bool>("IsHourlyPaid"))
                         {
-                            employee = employeeFactoryre.CreateHourlyPaidEmployeeInstance
+                            employee = employeeFactory.CreateHourlyPaidEmployeeInstance
                                 (dataRow.Field<string>("EmployeeType"), dataRow.Field<int>("EmployeeID"), dataRow.Field<int>("WorkHours"));
                         }
                         else
                         {
-                            employee = employeeFactoryre.CreateConstantPaidEmployeeInstance
-                               (dataRow.Field<string>("EmployeeType"), dataRow.Field<int>("EmployeeID"), dataRow.Field<double>("Payment"), dataRow.Field<int>("WorkHours"));
+                            employee = employeeFactory.CreateConstantPaidEmployeeInstance
+                               (dataRow.Field<string>("EmployeeType"), dataRow.Field<int>("EmployeeID"), dataRow.Field<double>("ConstantPayment"), dataRow.Field<int>("WorkHours"));
                         }
                     }
                 }
@@ -61,7 +61,7 @@ namespace MaternityWard.BL
 
         public List<Employee> GetEmployeesByType(EmployeeTypeEnum employeeType)
         {
-            EmployeeFactoryre employeeFactoryre = new EmployeeFactoryre();
+            CreateEmployeeFactory employeeFactoryre = new CreateEmployeeFactory();
             DataTable dataTable = EmployeeDal.GetEmployeesByType(employeeType.ToString());
             List<Employee> employees = new List<Employee>();
             Employee employee;

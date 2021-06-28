@@ -10,16 +10,16 @@ namespace MaternityWard.BL
 
         public abstract void InitRanks();
 
-        public override double CalculateEarnings()
+        protected override double CalculateEarnings()
         {
             this.InitRanks();
             this.ExtraPaidCheck();
             return this.Payment;
         }
 
-        protected override double GetPayment()
+        public override double GetPayment()
         {
-            return this.Payment;
+            return CalculateEarnings();
         }
 
     }

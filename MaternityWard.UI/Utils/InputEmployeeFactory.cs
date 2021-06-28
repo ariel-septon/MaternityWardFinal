@@ -5,22 +5,24 @@ using MaternityWard.BL;
 
 namespace MaternityWard.UI
 {
-    class EmployeeFactory
+    class InputEmployeeFactory
     {
-        public EmployeeFactory()
+        private readonly UIPrinters uiPrinters = new UIPrinters();
+        private readonly UIReaders uiReaders = new UIReaders();
+        public InputEmployeeFactory()
         {
         }
 
         private double InsertPayment(string employeeType)
         {
-            Console.WriteLine("please insert " + employeeType + " payment.");
-            return double.Parse(Console.ReadLine());
+            uiPrinters.PrintWithConsole<string>("please insert " + employeeType + " payment.");
+            return uiReaders.GetUserInput<double>();
         }
 
         private int InsertWorkHours(string employeeType)
         {
-            Console.WriteLine("please insert " + employeeType + " work hours.");
-            return int.Parse(Console.ReadLine());
+            uiPrinters.PrintWithConsole<string>("please insert " + employeeType + " work hours.");
+            return uiReaders.GetUserInput<int>();
         }
 
         public Employee CreateEmployeeInstance(string employeeType, int id)

@@ -11,7 +11,7 @@ namespace MaternityWard.BL
 
         public override void InitRanks()
         {
-            List<IRank> ranks = new List<IRank> { new Manager(this.GetPayment()) };
+            List<IRank> ranks = new List<IRank> { new Manager(this.Payment) };
             this.Ranks = ranks;
         }
     }

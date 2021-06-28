@@ -7,7 +7,7 @@ namespace MaternityWard.UI
     public class UIBootstrap
     {
         public static int employeeID = 25;
-        public static int shiftID = 1;
+        public static int shiftID = 3;
         private readonly UIExecuter uiExecuter = new UIExecuter(employeeID, shiftID);
         public UIBootstrap()
         {

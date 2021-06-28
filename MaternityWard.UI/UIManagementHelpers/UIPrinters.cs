@@ -21,16 +21,14 @@ namespace MaternityWard.UI
                 {
                     PrintWithConsole<string>(Convert.ToInt32(menuOption) + ") " + menuOption);
                 }
-                choice = uiReaders.GetUserChoice();
-                return choice;
-
-            } while (choice > 0);
+                choice = uiReaders.GetUserInput<int>();
+            } while (choice != 0 && choice >= Enum.GetNames(typeof(T)).Length);
+            return choice;
         }
 
         public void PrintWithConsole<T>(T print)
         {
             Console.WriteLine(print);
         }
-
     }
 }
