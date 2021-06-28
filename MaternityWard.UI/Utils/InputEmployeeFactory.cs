@@ -15,7 +15,7 @@ namespace MaternityWard.UI
 
         private double InsertPayment(string employeeType)
         {
-            uiPrinters.PrintWithConsole<string>("please insert " + employeeType + " payment.");
+            uiPrinters.PrintWithConsole<string>("please insert " + employeeType + " base salary.");
             return uiReaders.GetUserInput<double>();
         }
 

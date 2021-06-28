@@ -4,7 +4,7 @@
     [CategoryID]      INT           NOT NULL,
     [WorkHours]       INT           NULL,
     [IsHourlyPaid]    BIT           NOT NULL,
-    [ConstantPayment] FLOAT (53)    NULL,
+    [ConstantBasePayment] FLOAT (53)    NULL,
     PRIMARY KEY CLUSTERED ([EmployeeID] ASC),
     CONSTRAINT [FK_Employees_Categories] FOREIGN KEY ([CategoryID]) REFERENCES [dbo].[Categories] ([CategoryID])
 );

@@ -45,7 +45,7 @@ namespace MaternityWard.DAL
                 throw new Exception("There is a connection problem");
             }
 
-            string sql = "INSERT INTO Employees (EmployeeID, EmployeeType, CategoryID, WorkHours, IsHourlyPaid, ConstantPayment)" +
+            string sql = "INSERT INTO Employees (EmployeeID, EmployeeType, CategoryID, WorkHours, IsHourlyPaid, ConstantBasePayment)" +
                 " VALUES (" + id + ",'" + type + "','" + category + "','" + workHours + "'," + Convert.ToInt32(isHourlyPaid) + ",";
 
             if (isHourlyPaid)
@@ -53,6 +53,7 @@ namespace MaternityWard.DAL
                 sql += " NULL )";
             } else
             {
+                Console.WriteLine("should be");
                 sql += constantPayment + ")";
             }
 
@@ -121,7 +122,7 @@ namespace MaternityWard.DAL
                 throw new Exception("There is a connection problem");
             }
 
-            string sql = "UPDATE Employees SET Payment = " + payment + " WHERE EmployeeID = " + employeeID;
+            string sql = "UPDATE Employees SET ConstantBasePayment = " + payment + " WHERE EmployeeID = " + employeeID;
             int num = DBHelper.WriteData(sql);
 
             DBHelper.CloseConnection();

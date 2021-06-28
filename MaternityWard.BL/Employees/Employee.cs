@@ -50,9 +50,8 @@ namespace MaternityWard.BL
             double maxHourlyPayRate = 0;
             foreach (IRank rank in this.Ranks)
             {
-                if (rank is HourlyPaidRank)
+                if (rank is HourlyPaidRank hourlyPaid)
                 {
-                    HourlyPaidRank hourlyPaid = (HourlyPaidRank)rank;
                     if (hourlyPaid.HourlyPayRate > maxHourlyPayRate)
                     {
                         maxHourlyPayRate = hourlyPaid.HourlyPayRate;
@@ -67,9 +66,8 @@ namespace MaternityWard.BL
         {
             foreach (IRank rank in this.Ranks)
             {
-                if (rank is ExtraPaidRank)
+                if (rank is ExtraPaidRank extraPaid)
                 {
-                    ExtraPaidRank extraPaid = (ExtraPaidRank)rank;
                     extraPaid.BaseSalary = this.CalculateEarnings();
                     this.Payment = extraPaid.SalaryCalculation();
                     return true;

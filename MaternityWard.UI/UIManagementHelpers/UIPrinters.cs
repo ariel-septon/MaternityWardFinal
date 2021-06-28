@@ -6,12 +6,10 @@ namespace MaternityWard.UI
 {
     class UIPrinters
     {
-        UIReaders uiReaders = new UIReaders();
         public UIPrinters()
         {
         }
-
-        public int PrintMenuOptions<T>() where T: System.Enum
+        public int PrintMenuOptions<T>(UIReaders uiReaders) where T: System.Enum
         {
             int choice;
             do

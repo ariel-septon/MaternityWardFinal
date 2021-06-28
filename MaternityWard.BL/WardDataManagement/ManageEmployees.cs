@@ -13,7 +13,6 @@ namespace MaternityWard.BL
             if (!EmployeeDal.IsExist(employee.Id))
             {
                 EmployeeDal.AddEmployee(employee.Id, employee.EmployeeType.ToString(), (int)employee.Category, employee.WorkHours, employee.IsHourlyPaid, employee.Payment);
-                Console.WriteLine("success!");
                 return true;
             }
             return false;
@@ -38,14 +37,13 @@ namespace MaternityWard.BL
                         else
                         {
                             employee = employeeFactory.CreateConstantPaidEmployeeInstance
-                               (dataRow.Field<string>("EmployeeType"), dataRow.Field<int>("EmployeeID"), dataRow.Field<double>("ConstantPayment"), dataRow.Field<int>("WorkHours"));
+                               (dataRow.Field<string>("EmployeeType"), dataRow.Field<int>("EmployeeID"), dataRow.Field<double>("ConstantBasePayment"), dataRow.Field<int>("WorkHours"));
                         }
                     }
                 }
+                return employee;
             }
-            ManageShifts manageShifts = new ManageShifts();
-            List<Shift> shifts = manageShifts.GetShiftsByEmployeeID((employeeID));
-            return employee;
+            return null;
         }
 
         public List<Employee> GetEmployeesByType(EmployeeTypeEnum employeeType)
@@ -73,9 +71,21 @@ namespace MaternityWard.BL
                     {
                         employees.Add(employee);
                     }
+
                 }
+                return employees;
             }
-            return employees;
+            return null;
+        }
+
+        public int GetEmployeesAmount()
+        {
+            DataTable dataTable = EmployeeDal.GetAllEmployees();
+            if (dataTable != null)
+            {
+                return dataTable.Rows.Count;
+            }
+            return 0;
         }
     }
 }

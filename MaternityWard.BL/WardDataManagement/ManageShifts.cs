@@ -8,22 +8,18 @@ namespace MaternityWard.BL
 {
     public class ManageShifts
     {
-        private string dateFormat = "dd/MM/yyyy HH:mm:ss";
+        private readonly string dateFormat = "dd/MM/yyyy HH:mm:ss";
         public bool AddShift(Shift shift)
         {
             if (!ShiftDAL.IsExist(shift.ShiftID))
             {
-                Console.WriteLine(shift.HourIn.ToString(dateFormat));
                 ShiftDAL.AddShift(shift.ShiftID, shift.EmployeeID, shift.HourIn.ToString(dateFormat), shift.HourOut.ToString(dateFormat));
                 ManageEmployees manage = new ManageEmployees();
 
                 Employee employee = manage.GetEmployeeByID(shift.EmployeeID);
                 EmployeeDal.UpdateEmployeeWorkHours(shift.EmployeeID, employee.WorkHours + (shift.HourOut - shift.HourIn).Hours);
                 
-                Console.WriteLine(employee.HourlyPayment);
                 EmployeeDal.UpdateEmployeePayment(shift.EmployeeID, employee.HourlyPayment * employee.WorkHours);
-                
-                Console.WriteLine("success!");
                 return true;
             }
             return false;
@@ -45,6 +41,15 @@ namespace MaternityWard.BL
                 }
             }
             return shifts;
+        }
+        public int GetShiftsAmount()
+        {
+            DataTable dataTable = ShiftDAL.GetAllShifts();
+            if (dataTable != null)
+            {
+                return dataTable.Rows.Count;
+            }
+            return 0;
         }
     }
 }

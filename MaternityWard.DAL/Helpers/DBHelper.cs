@@ -76,14 +76,7 @@ namespace MaternityWard.DAL
                 dataTable.Load(dataReader);
                 dbConnection.Close();
             }
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                DataRow dataRow = dataTable.Rows[i];
-                for(int j = 0; j < dataTable.Columns.Count; j++)
-                {
-                    DataColumn dataColumn = dataTable.Columns[j];
-                }
-            }
+
             return dataTable;
         }
         public static string ConnectionString { get => connectionString; set => connectionString = value; }

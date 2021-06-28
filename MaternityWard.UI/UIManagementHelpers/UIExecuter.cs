@@ -9,15 +9,15 @@ namespace MaternityWard.UI
     {
         private int employeeID;
         private int shiftID;
+        private readonly ManageEmployees manageEmployees = new ManageEmployees();
+        private readonly ManageShifts manageShifts = new ManageShifts();
         private readonly UIPrinters uiPrinters = new UIPrinters();
         private readonly UIReaders uiReaders = new UIReaders();
-        public int EmployeeID { get => employeeID; set => employeeID = value; }
-        public  int ShiftID { get => shiftID; set => shiftID = value; }
-
-        public UIExecuter(int employeeID, int shiftID)
+        private readonly InputValidations inputValidations = new InputValidations();
+        public UIExecuter()
         {
-            this.EmployeeID = employeeID;
-            this.ShiftID = shiftID;
+            this.employeeID = manageEmployees.GetEmployeesAmount() + 1;
+            this.shiftID = manageShifts.GetShiftsAmount() + 1;
         }
 
         private void ExecuteAction(int choice)
@@ -46,52 +46,53 @@ namespace MaternityWard.UI
             int choice;
             do
             {
-                choice = uiPrinters.PrintMenuOptions<MainMenuOptions>();
+                choice = uiPrinters.PrintMenuOptions<MainMenuOptions>(uiReaders);
                 ExecuteAction(choice);
                 if (choice != 0)
                 {
-                    choice = uiPrinters.PrintMenuOptions<ReRunMenuOptions>();
+                    choice = uiPrinters.PrintMenuOptions<ReRunMenuOptions>(uiReaders);
                 }
             } while (choice != 0);
         }
         private void AddEmployee()
         {
-            int choice = uiPrinters.PrintMenuOptions<EmployeeTypeEnum>();
+            int choice = uiPrinters.PrintMenuOptions<EmployeeTypeEnum>(uiReaders);
             if (Enum.IsDefined(typeof(EmployeeTypeEnum), choice))
             {
                 InputEmployeeFactory factory = new InputEmployeeFactory();
                 Employee emp = factory.CreateEmployeeInstance(Enum.GetName(typeof(EmployeeTypeEnum), choice), employeeID);
                 employeeID += 1;
-                ManageEmployees manage = new ManageEmployees();
-                manage.AddEmployee(emp);
+                inputValidations.DataValidCheck(uiPrinters, manageEmployees.AddEmployee(emp));
             }
         }
-        private  void InsertShiftHoursForEmployee()
+        private void InsertShiftHoursForEmployee()
         {
             int employeeID;
             uiPrinters.PrintWithConsole<string>("Please Enter EmployeeID: ");
             employeeID = uiReaders.GetUserInput<int>();
+            Employee employee = manageEmployees.GetEmployeeByID(employeeID);
 
-            ManageEmployees manageEmployees = new ManageEmployees();
-            ManageShifts manageShifts = new ManageShifts();
-
-            manageEmployees.GetEmployeeByID(employeeID);
-            uiPrinters.PrintWithConsole<string>("insert hour in and hour out in the format-> hour:minutes (12:30)");
-            DateTime hourIn = uiReaders.GetUserDateTime(DateTime.Now.Day, new DateTime());
-            DateTime hourOut = uiReaders.GetUserDateTime(DateTime.Now.Day, hourIn);
-            Shift shift = new Shift(ShiftID, employeeID, hourIn, hourOut);
-            ShiftID += 1;
-            manageShifts.AddShift(shift);
+            if (inputValidations.IsEmployeeIDValid(uiPrinters, employee))
+            {
+                uiPrinters.PrintWithConsole<string>("insert hour in and hour out in the format-> hour:minutes (12:30)");
+                DateTime hourIn = uiReaders.GetUserDateTime(DateTime.Now.Day, new DateTime());
+                DateTime hourOut = uiReaders.GetUserDateTime(DateTime.Now.Day, hourIn);
+                Shift shift = new Shift(shiftID, employeeID, hourIn, hourOut);
+                shiftID += 1;
+                inputValidations.DataValidCheck(uiPrinters, manageShifts.AddShift(shift));
+            } 
         }
-        private  void ViewEmployeeSalary()
+        private void ViewEmployeeSalary()
         {
             int employeeID;
             uiPrinters.PrintWithConsole<string>("Please Enter EmployeeID:");
             employeeID = uiReaders.GetUserInput<int>();
-            ManageEmployees manageEmployees = new ManageEmployees();
 
             Employee employee = manageEmployees.GetEmployeeByID(employeeID);
-            uiPrinters.PrintWithConsole<double>(employee.GetPayment());
+            if (inputValidations.IsEmployeeIDValid(uiPrinters, employee))
+            {
+                uiPrinters.PrintWithConsole<string>("The employee salary is " + employee.GetPayment());
+            } 
         }
     }
 }

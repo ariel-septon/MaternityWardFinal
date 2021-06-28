@@ -24,9 +24,8 @@ namespace MaternityWard.BL
         {
             foreach (IRank rank in this.Ranks)
             {
-                if (rank is HourlyPaidRank)
+                if (rank is HourlyPaidRank hourlyPaid)
                 {
-                    HourlyPaidRank hourlyPaid = (HourlyPaidRank)rank;
                     hourlyPaid.WorkHours = workHours;
                 }
             }

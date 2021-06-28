@@ -33,7 +33,7 @@ namespace MaternityWard.UI
                 return dateTime;
             } catch
             {
-                throw new Exception("You entered wrong data.");
+                throw new Exception("You entered wrong date.");
             }
         }
     }

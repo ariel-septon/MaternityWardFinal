@@ -2,9 +2,11 @@ namespace MaternityWard.BL
 {
     public abstract class ConstantPaidEmployee : Employee
     {
-        public ConstantPaidEmployee(double payment, int workHours, int id): base(workHours, id)
+        private readonly double baseSalary;
+        public ConstantPaidEmployee(double baseSalary, int workHours, int id): base(workHours, id)
         {
-            this.Payment = payment;
+            this.baseSalary = baseSalary;
+            this.Payment = baseSalary;
             this.IsHourlyPaid = false;
         }
 
@@ -13,13 +15,14 @@ namespace MaternityWard.BL
         protected override double CalculateEarnings()
         {
             this.InitRanks();
-            this.ExtraPaidCheck();
-            return this.Payment;
+            return this.baseSalary;
         }
 
         public override double GetPayment()
         {
-            return CalculateEarnings();
+            this.CalculateEarnings();
+            this.ExtraPaidCheck();
+            return this.Payment;
         }
 
     }
