@@ -4,7 +4,7 @@ using System;
 namespace MaternityWard
 {
 
-    class Program
+    class MainProgram
     {
         static void Main(string[] args)
         {
