@@ -45,18 +45,7 @@ namespace MaternityWard.BL
             }
             ManageShifts manageShifts = new ManageShifts();
             List<Shift> shifts = manageShifts.GetShiftsByEmployeeID((employeeID));
-
             return employee;
-        }
-
-        public List<Employee> GetAllEmployees()
-        {
-            List<Employee> employees = new List<Employee>();
-            foreach (EmployeeTypeEnum employeeType in Enum.GetValues(typeof(EmployeeTypeEnum)))
-            {
-                employees.AddRange(GetEmployeesByType(employeeType));
-            }
-            return employees;
         }
 
         public List<Employee> GetEmployeesByType(EmployeeTypeEnum employeeType)

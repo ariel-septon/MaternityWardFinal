@@ -34,10 +34,6 @@ namespace MaternityWard.DAL
                 connectionOpen = false; 
             }
         }
-        public static bool IsConnectionOpen()
-        {
-            return connectionOpen;
-        }
         public static SqlDataReader ReadData(string sql)
         {
             OpenConnection();
