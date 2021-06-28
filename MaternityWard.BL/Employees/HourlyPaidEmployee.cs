@@ -4,9 +4,12 @@ namespace MaternityWard.BL
 {
     public abstract class HourlyPaidEmployee : Employee
     {
+        private double hourlyPayment;
+        public double HourlyPayment { get => hourlyPayment; set => hourlyPayment = value; }
         public HourlyPaidEmployee(int workHours, int id): base(workHours, id)
         {
             this.IsHourlyPaid = true;
+            this.GetHourlyPayment();
         }
 
         public abstract void InitRanks();
@@ -29,6 +32,23 @@ namespace MaternityWard.BL
                     hourlyPaid.WorkHours = workHours;
                 }
             }
+        }
+
+        public double GetHourlyPayment()
+        {
+            double maxHourlyPayRate = 0;
+            foreach (IRank rank in this.Ranks)
+            {
+                if (rank is HourlyPaidRank hourlyPaid)
+                {
+                    if (hourlyPaid.HourlyPayRate > maxHourlyPayRate)
+                    {
+                        maxHourlyPayRate = hourlyPaid.HourlyPayRate;
+                    }
+                }
+            }
+            this.hourlyPayment = maxHourlyPayRate;
+            return maxHourlyPayRate;
         }
         protected override double CalculateEarnings()
         {

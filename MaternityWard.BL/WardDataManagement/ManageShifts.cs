@@ -18,8 +18,11 @@ namespace MaternityWard.BL
 
                 Employee employee = manage.GetEmployeeByID(shift.EmployeeID);
                 EmployeeDal.UpdateEmployeeWorkHours(shift.EmployeeID, employee.WorkHours + (shift.HourOut - shift.HourIn).Hours);
-                
-                EmployeeDal.UpdateEmployeePayment(shift.EmployeeID, employee.HourlyPayment * employee.WorkHours);
+                if (employee.IsHourlyPaid)
+                {
+                    HourlyPaidEmployee hourlyPaid = (HourlyPaidEmployee)employee;
+                    EmployeeDal.UpdateEmployeePayment(shift.EmployeeID, hourlyPaid.HourlyPayment * employee.WorkHours);
+                }
                 return true;
             }
             return false;
